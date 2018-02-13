@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta charset="utf-8" />
+   <title>Vacation Wishlist</title>
+   <style type="text/css">
+   .images {
+       display: flex;
+       flex-direction: row;
+   }
+   
+   </style>
+</head>
+<body>
+
+        <h1>hi</h1>
+        <form action="/destinations" method="POST">
+         <input type="text" placeholder="name" name="name">
+         <input type="text" placeholder="photos" name="photos">
+         <button type="submit">Submit</button>
+         </form> 
+         <ul>
+            <% if (cities) { %>
+            <% for (var i = 0; i < cities.length; i++) { %>
+                <li>
+                    <span><%= cities[i].name %></span>
+                    <div class="images">
+                            <% for (var j=0; j < cities[i].photos.length; j++) { %>
+                                <img src="<%=cities[i].photos[j]%>" />
+                            <% } %> 
+                    </div>
+         
+                </li>
+            <% } %>
+            <% } %>
+        </ul>
+
+
+</body>
+</html>
