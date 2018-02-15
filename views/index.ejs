@@ -16,16 +16,15 @@
    #edit-field {
        margin-top: 5px;
    }
-   
    </style>
 </head>
-<body>
-
+    <body>   
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <h1>Vacation Wishlist</h1>
-        <form action="/destinations" method="POST">
+        <form method="POST">
           <div class="inputs">
             <div>
-              <input type="text" placeholder="name" name="name">
+              <input id="cityInput" type="text" placeholder="name" name="name">
               <input type="text" placeholder="photos" name="photos">
               <button type="submit">Submit</button>
             </div>
@@ -54,7 +53,9 @@
             <% } %>
             <% } %>
         </ul>
-
-<script src="main.js"></script>
-</body>
+        <script>
+            $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+        </script>
+        <script src="main.js"></script>
+    </body>
 </html>
