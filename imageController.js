@@ -3,11 +3,10 @@
 const request = require('request');
 const router = require('express').Router();
 // DATABASE SCHEMA
-const City = require ('./Model.js')
 //DB CONNECTION
 const MongoClient = require('mongodb').MongoClient; 
 const mongoose = require('mongoose'); 
-let CityModel = require ('./Model.js'); 
+let CityModel = require ('./models/cityModel.js'); 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://starburststar:star@ds233228.mlab.com:33228/cities'); //CONNECT TO DB
 let db = mongoose.connection; //CALL THE DATABASE
