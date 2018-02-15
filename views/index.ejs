@@ -3,10 +3,25 @@
 <head>
    <meta charset="utf-8" />
    <title>Vacation Wishlist</title>
+
    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
    <link rel="stylesheet" href="stylesheets/styles.css">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.14/semantic.min.css">
-   
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <style type="text/css">
+   .images {
+       display: flex;
+   }
+
+   .inputs {
+       display: flex;
+       flex-direction: column;
+   }
+
+   #edit-field {
+       margin-top: 5px;
+   }
+   </style>
 </head>
 <body>
 </head>
@@ -14,27 +29,44 @@
   <div class="container">
       <div class="jumbotron">
       <h1>Sites and Sites</h1>
-    </div>
+    </div> 
+         
+        <h1>Vacation Wishlist</h1>
+        <form method="POST">
+          <div class="inputs">
+            <div>
+              <input id="cityInput" type="text" placeholder="name" name="name">
+              <button type="submit">Submit</button>
+            </div>
+            <div class="edit-city">
+                <input id="edit-field" type="text" placeholder="Edit City" name="Edit City">
+                <button type="submit">Change City</button>
+            </div>
+          </div>
+         </form> 
+         <ul>
+            <% if (cities) { %>
+            <% for (var i = 0; i < cities.length; i++) { %>
+                <li>
+                    <div>
+                      <button class="update" type="submit">Edit</button>
+                      <button name="<%= cities[i].name %>" class="delete" type="submit">Delete</button>
+                    </div>
+                    <span><%= cities[i].name %></span>
+                    <div class="images">
+                            <% for (var j=0; j < cities[i].photos.length; j++) { %>
+                                <img src="<%=cities[i].photos[j]%>" />
+                            <% } %> 
+                    </div>
+         
+                </li>
+            <% } %>
+            <% } %>
+        </ul>
+        <script>
+            $('html,body').animate({scrollTop: document.body.scrollHeight},"fast");
+        </script>
+        <script src="main.js"></script>
+    </body>
 
-  <form action="/destinations" method="POST">
-      <input type="text" placeholder="name" name="name">
-      <button type="submit">Submit</button>
-      </form> 
-      <ul>
-      <% if (cities) { %>
-      <% for (var i = 0; i < cities.length; i++) { %>
-          <li>
-              <span><%= cities[i].name %></span>
-              <div class="images">
-                      <% for (var j=0; j < cities[i].photos.length; j++) { %>
-                          <img src="<%=cities[i].photos[j]%>" />
-                      <% } %> 
-              </div>
-      
-          </li>
-      <% } %>
-      <% } %>
-  </ul>
-
-</body>
 </html>

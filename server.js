@@ -1,8 +1,9 @@
+//SERVER
 const express = require('express');
 const bodyParser= require('body-parser');
 const app = express(); 
-const routes = require('./routes.js');
 const path = require('path');
+
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/userModel.js');
@@ -10,19 +11,24 @@ const City = require('./models/cityModel.js');
 // stores data on server - an object that stores session in memory
 const session = require('cookie-session');
 
+//DATABASE
 const MongoClient = require('mongodb').MongoClient; 
-const mongoose = require('mongoose');
-
-// set mongoos to es6 promises
+const mongoose = require('mongoose'); 
+// const City = require ('./Model.js'); 
 mongoose.Promise = global.Promise;
-// CONNECT TO DB
 mongoose.connect('mongodb://starburststar:star@ds233228.mlab.com:33228/cities', (err) => {
   if(err) throw err;
   console.log('Successfully connected to MongoDB');
 });
-// CALL THE DATABASE
-let db = mongoose.connection;
+let db = mongoose.connection; //CALL THE DATABASE
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+//FLICKR API
+var Flickr = require("node-flickr");
+var keys = {"api_key": "f1caa3b8803601033b1eb3168ad49753"}
+flickr = new Flickr(keys);
+// ROUTERS
+const imageController = require('./imageController');
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(__dirname + '/public'));
@@ -113,7 +119,26 @@ app.post('/login', passport.authenticate('local',
 // testData();
 
 
-// PORT
-app.listen(3000, () => {
-  console.log('Listening on 3000');
-});
+
+
+
+app.post('/', imageController.getImages,  imageController.saveImages , (req,res) => {
+    res.end();
+})
+
+app.post('/delete', (req, res) => {
+    console.log(req.body.name);
+    db.collection('cities').findOneAndDelete({name: req.body.name},
+    (err, result) => {
+        if (err) return res.send(err);
+        res.status(200).send(result);
+    })
+})
+
+
+
+app.listen(3000, function() {
+    console.log('listening on 3000')
+})
+
+

@@ -6,7 +6,7 @@ router.route('/destinations')
     .post((req, res) => {
         // res.send(req.body);
         res.redirect('/');
-        let city = new City(req.body);
+        let city = new City({name: req.body.name, photos: req.body.photos.split(',')});
         city.save()
             .then((city) => {
                 res.status(200).send('this worked');
